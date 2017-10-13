@@ -5,15 +5,12 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <Button
-        android:id="@+id/button"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Button" />
 
-    <CheckBox
-        android:id="@+id/checkBox"
+    <dmitriy.deomin.myapplication.Label
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="CheckBox" />
+        android:layout_height="match_parent"
+        android:text="@string/abaut_info_text" />
+
+
+
 </LinearLayout>
