@@ -1,4 +1,4 @@
 <resources>
     <string name="app_name">My Application</string>
-    <string name="abaut_info_text">тут бесполезный текс т который некто не удет читать</string>
+    <string name="abaut_info_text">тут бесполезный текс т который некто не будет читать</string>
 </resources>

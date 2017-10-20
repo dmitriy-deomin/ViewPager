@@ -1,15 +1,20 @@
 package dmitriy.deomin.myapplication
 
+import android.content.SharedPreferences
 import android.os.Bundle
 import android.support.v4.app.FragmentActivity
 import android.support.v4.view.ViewPager
 import android.view.View
-import android.content.SharedPreferences
 import android.text.Spannable
 import android.graphics.Typeface
 
 
 class MainActivity : FragmentActivity() {
+
+
+
+    //val - final
+    //var - переменная
 
     companion object {
         //шрифт
@@ -25,7 +30,7 @@ class MainActivity : FragmentActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        mSettings = getSharedPreferences("mysettings", MODE_PRIVATE)
+        mSettings = getSharedPreferences("mysettings", FragmentActivity.MODE_PRIVATE)
         face = Typeface.createFromAsset(assets, if (save_read("fonts") == "") "fonts/Tweed.ttf" else save_read("fonts"))
 
         val adapter = pageradapter(supportFragmentManager)
@@ -34,7 +39,10 @@ class MainActivity : FragmentActivity() {
         pager.adapter = adapter
     }
 
-    private fun save_read(key: String): String {
+
+
+
+    fun save_read(key: String): String {
         if(mSettings!!.contains(key)){
             return mSettings!!.getString(key,"")
         }else{
