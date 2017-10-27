@@ -28,7 +28,7 @@
             android:src="@drawable/vk" />
     </LinearLayout>
 
-    <dmitriy.deomin.myapplication.Label
+    <dmitriy.deomin.myapplication.vidgets.Label
         android:id="@+id/label_abaut"
         android:layout_width="match_parent"
         android:layout_height="match_parent"

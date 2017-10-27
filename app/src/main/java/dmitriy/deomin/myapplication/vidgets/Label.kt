@@ -1,4 +1,4 @@
-package dmitriy.deomin.myapplication
+package dmitriy.deomin.myapplication.vidgets
 
 
 import android.content.Context

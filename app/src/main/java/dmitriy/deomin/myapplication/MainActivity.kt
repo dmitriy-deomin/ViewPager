@@ -1,6 +1,6 @@
 package dmitriy.deomin.myapplication
 
-import android.content.SharedPreferences
+import android.content.*
 import android.os.Bundle
 import android.support.v4.app.FragmentActivity
 import android.support.v4.view.ViewPager
@@ -11,18 +11,26 @@ import android.graphics.Typeface
 
 class MainActivity : FragmentActivity() {
 
-
-
     //val - final
     //var - переменная
+
 
     companion object {
         //шрифт
         var face: Typeface? = null
         //для текста
         var text: Spannable? = null
+
         //сохранялка
-        var mSettings: SharedPreferences? = null // сохранялка
+        //----------------------------------------------------------------
+        var settings: SharedPreferences? = null // сохранялка
+        //чтение настроек
+        fun read_str(key:String):String{ if(ne_pusto(key)){return settings!!.getString(key,"")}else{return ""} }
+        fun ne_pusto(key:String):Boolean{return settings!!.contains(key)}
+        //запись настроек
+        fun save_str(key:String,value:String){ settings!!.edit().putString(key,value).apply() }
+        //----------------------------------------------------------------
+
     }
 
 
@@ -30,24 +38,32 @@ class MainActivity : FragmentActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        mSettings = getSharedPreferences("mysettings", FragmentActivity.MODE_PRIVATE)
-        face = Typeface.createFromAsset(assets, if (save_read("fonts") == "") "fonts/Tweed.ttf" else save_read("fonts"))
+        settings = getSharedPreferences("mysettings", FragmentActivity.MODE_PRIVATE)
+        face = Typeface.createFromAsset(assets, if (read_str("fonts") == "") "fonts/Tweed.ttf" else read_str("fonts"))
 
         val adapter = pageradapter(supportFragmentManager)
-        val pager = findViewById<View>(R.id.pager) as ViewPager
+        val viewpager = findViewById<View>(R.id.pager) as ViewPager
 
-        pager.adapter = adapter
-    }
-
-
+        viewpager.adapter = adapter
+        viewpager.currentItem = 0
 
 
-    fun save_read(key: String): String {
-        if(mSettings!!.contains(key)){
-            return mSettings!!.getString(key,"")
-        }else{
-            return ""
+        //и будем слушать сигналы из космоса для смены страницы вьюпажера
+        //***************************************************************************
+        //фильтр для нашего сигнала из сервиса
+        val intentFilter = IntentFilter()
+        intentFilter.addAction("signal_dla_view_pagera")
+
+        //приёмник  сигналов
+        val broadcastReceiver = object : BroadcastReceiver() {
+            override fun onReceive(context: Context, intent: Intent) {
+                viewpager.currentItem = intent.getIntExtra("number",0)
+            }
         }
+        //регистрируем приёмник
+        registerReceiver(broadcastReceiver, intentFilter)
+        //************************************************************************************
+
     }
 
 }

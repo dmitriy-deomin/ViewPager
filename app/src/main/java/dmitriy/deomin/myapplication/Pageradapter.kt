@@ -11,11 +11,12 @@ class pageradapter(fm: FragmentManager) : FragmentStatePagerAdapter(fm) {
         when (position) {
             0 -> return PageHome()
             1 -> return PageAbaut()
+            2 -> return PageSetting()
         }
         return null
     }
 
     override fun getCount(): Int {
-        return 2
+        return 3
     }
 }
